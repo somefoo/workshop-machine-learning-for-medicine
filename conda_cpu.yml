@@ -1,21 +1,19 @@
-name: curac
+name: workshop
 channels:
 - pytorch
-- conda-forge
 dependencies:
-- python=3.8
-- numpy
-- cpuonly
-- pytorch
-- torchvision
-- torchaudio
-- notebook
-- ipywidgets
-- pandas
-- pillow
-- tqdm
-- matplotlib
+- python=3.9
 - pip
 - pip:
   - livelossplot
   - torchsummary
+  - numpy
+  - torch
+  - torchvision
+  - torchaudio
+  - notebook
+  - ipywidgets
+  - pandas
+  - pillow
+  - tqdm
+  - matplotlib
