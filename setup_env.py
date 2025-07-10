@@ -13,8 +13,11 @@ def download_url(url: str, save_path: Path, chunk_size=128):
         )
 
     r = requests.get(url, stream=True)
-    size = r.headers["content-length"]
-    length = int(int(size) / chunk_size)
+    size = r.headers.get("content-length")
+    if size is None:
+        total = None
+    else:
+        total = int(size)
 
     import tqdm
     import os
@@ -22,7 +25,7 @@ def download_url(url: str, save_path: Path, chunk_size=128):
     os.makedirs(save_path.parent, exist_ok=True)
 
     with open(str(save_path.absolute()), "wb") as fd, tqdm.tqdm(
-        total=length * chunk_size,
+        total=total,
         unit_scale=True,
         unit_divisor=1024,
         unit="B",
@@ -35,8 +38,19 @@ def download_url(url: str, save_path: Path, chunk_size=128):
 
 def get_data():
 
+    # Wait for the user to confirm that we are within a FAU network
+    print(
+        "[SPARC INFO]: Please make sure you are connected to the FAU network (e.g., VPN) before downloading the data."
+    )
+    confirm = input("Continue? (Y/n)").strip().lower()
+    if confirm not in ["y", "yes", ""]:
+        print(
+            "[SPARC INFO]: Exiting without downloading data. Please run again with --download to download the data."
+        )
+        sys.exit(0)
+
     download_url(
-        "https://getsamplefiles.com/download/zip/sample-1.zip",
+        "https://sparc-cloud.aibe.uni-erlangen.de/f/d5579673d3b24f36adfe/?dl=1",
         Path("tmp/data.zip"),
     )
 
