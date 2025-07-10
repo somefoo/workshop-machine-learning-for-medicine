@@ -3,3 +3,4 @@
 * Balázs Gyenes
 * Pit Henrich
 * Marius Steger
+* Steffen Peikert (steffen.peikert@fau.de)
