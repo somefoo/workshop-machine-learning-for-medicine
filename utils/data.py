@@ -62,8 +62,8 @@ class SkinCancerDataset(torch.utils.data.Dataset):
         self.data_points = [(image_path, target) for (image_path, target) in zip(image_paths, targets)]
         random.shuffle(self.data_points)
 
-        print(f"[HERA INFO]: Created skin cancer dataset from image paths and labels for {len(self.data_points)} data points.")
-        print(f"[HERA INFO]: Target key is {target_key} for targets of type {target_types}.")
+        print(f"[SPARC INFO]: Created skin cancer dataset from image paths and labels for {len(self.data_points)} data points.")
+        print(f"[SPARC INFO]: Target key is {target_key} for targets of type {target_types}.")
 
         pil_image = Image.open(str(image_paths[0].absolute()))
         self.image_shape = (3,) + pil_image.size
@@ -88,7 +88,7 @@ class SkinCancerDataset(torch.utils.data.Dataset):
                 )
             )
 
-            print(f"[HERA INFO]: Images will be normalized with:\n mean: {normalize_mean} and\n std: {normalize_std}.")
+            print(f"[SPARC INFO]: Images will be normalized with:\n mean: {normalize_mean} and\n std: {normalize_std}.")
 
         self.transform = transforms.Compose(transform_list)
 
@@ -141,7 +141,7 @@ def load_dataset(
             shuffle=do_shuffle,
             num_workers=num_workers,
         )
-        print(f"[HERA INFO]: Created a single DataLoader from DataSet with batch size {batch_size}.")
+        print(f"[SPARC INFO]: Created a single DataLoader from DataSet with batch size {batch_size}.")
     else:
         assert (
             sum(split_ratios) == 1.0
@@ -158,12 +158,12 @@ def load_dataset(
             for split in sets
         )
 
-        print(f"[HERA INFO]: Created three DataLoaders from DataSet with batch size {batch_size}.")
+        print(f"[SPARC INFO]: Created three DataLoaders from DataSet with batch size {batch_size}.")
         print(
-            f"[HERA INFO]: There are {len(sets[0])}, {len(sets[1])}, and {len(sets[2])} data points for training, validating, and testing, respectively."
+            f"[SPARC INFO]: There are {len(sets[0])}, {len(sets[1])}, and {len(sets[2])} data points for training, validating, and testing, respectively."
         )
 
-    print(f"[HERA INFO]: The image shape is {dataset.resize_shape if dataset.resize_shape is not None else dataset.image_shape}")
-    print(f"[HERA INFO]: Datapoints will {'not ' if not do_shuffle else ''}be shuffled after a full pass.")
+    print(f"[SPARC INFO]: The image shape is {dataset.resize_shape if dataset.resize_shape is not None else dataset.image_shape}")
+    print(f"[SPARC INFO]: Datapoints will {'not ' if not do_shuffle else ''}be shuffled after a full pass.")
 
     return loader
